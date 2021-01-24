@@ -1,6 +1,5 @@
-import { getAllVinyls } from "./scripts.js";
 const express = require("express");
-const fs = require("fs");
+const scripts = require("./scripts.js");
 
 const app = express();
 
@@ -13,57 +12,39 @@ app.get("/", (req, res) => {
 
 // elenco di tutti i dischi: GET /vinyls
 app.get("/vinyls", (req, res) => {
-	//TODO: getAllVinyls()
-	res.send(getAllVinyls());
+	res.send(scripts.getAllVinyls());
 });
 
 // elenco degli autori: GET /authors
 app.get("/authors", (req, res) => {
-	res.send([
-		{
-			nome: "pinco pallo",
-			id: 1,
-		},
-		{
-			nome: "test",
-			id: 2,
-		},
-	]);
+	res.send(scripts.getAllAuthors());
 });
 
 // elenco dei generi: GET /genres
+app.get("/authors", (req, res) => {
+	res.send(scripts.getAllGenres());
+});
 
 // recuperare informazioni di un disco: GET /vinyls/234
 app.get("/vinyls/:id", (req, res) => {
 	const { id } = req.params;
-
-	// TODO: recupero dettagli vinile richiesto
-
 	//ritorno valori al client
-	res.send({
-		titolo: "disco 1",
-		autore: 1,
-	});
+	res.send(scripts.getVinyl(id));
 });
 
 // recuperare i dischi di un autore: GET /authors/2/vinyls
 app.get("/authors/:id/vinyls", (req, res) => {
 	const { id } = req.params;
-
-	// TODO: recupero dettagli vinile richiesto
-
 	//ritorno valori al client
-	res.send([
-		{
-			titolo: "disco 1",
-		},
-		{
-			titolo: "disco 1",
-		},
-	]);
+	res.send(scripts.getAuthor(id));
 });
 
-// recuperare i dischi di un genere: GET /genres/1/vinyl\s
+// recuperare i dischi di un genere: GET /genres/1/vinyls
+app.get("/genres/:id/vinyls", (req, res) => {
+	const { id } = req.params;
+	//ritorno valori al client
+	res.send(scripts.getGenre(id));
+});
 
 app.listen(3000, () => {
 	console.log("connesso");
