@@ -1,10 +1,8 @@
+import { getAllVinyls } from "./scripts.js";
 const express = require("express");
 const fs = require("fs");
 
 const app = express();
-
-const data = JSON.parse(fs.readFileSync("./data.json").toString());
-console.log(data);
 
 // TODO: per scrivere data su file uso fs.writeFileSync
 // TODO: come faccio a scrivere delle funzioni che scrivono dati dal nostro "db" da poter richiamare da express
@@ -16,7 +14,7 @@ app.get("/", (req, res) => {
 // elenco di tutti i dischi: GET /vinyls
 app.get("/vinyls", (req, res) => {
 	//TODO: getAllVinyls()
-	res.send(data);
+	res.send(getAllVinyls());
 });
 
 // elenco degli autori: GET /authors
