@@ -1,4 +1,4 @@
-- / : ritorna un oggetto json con esempi di possibili percorsi a cui il server risponde.
+# VINYLS SERVER MADE USING EXPRESS
 
 ## obiettivi
 
@@ -41,6 +41,7 @@ BODY: informazioni per eseguire la richiesta scritte in JSON
 
 ### API pubblica
 
+- oggetto json con esempi di possibili percorsi a cui il server risponde: GET /
 - elenco di tutti i dischi: GET /vinyls
 - elenco degli autori: GET /authors
 - elenco dei generi: GET /genres
