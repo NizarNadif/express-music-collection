@@ -1,11 +1,18 @@
 module.exports = {
+	// all GETs
 	getAllVinyls,
 	getAllAuthors,
 	getAllGenres,
+
+	// specific GETs
 	getVinyl,
 	getAuthor,
 	getGenre,
+
+	// POSTs
 	postVinyl,
+	postAuthor,
+	postGenre,
 };
 
 const fs = require("fs");
