@@ -2,11 +2,10 @@ module.exports = {
 	getAllVinyls,
 	getAllAuthors,
 	getAllGenres,
-
-	// get di un dato singolo
 	getVinyl,
 	getAuthor,
 	getGenre,
+	postVinyl,
 };
 
 const fs = require("fs");
@@ -38,4 +37,22 @@ function getGenre(id) {
 	const data = JSON.parse(fs.readFileSync("./vinyls.json").toString());
 	const result = data.filter((vinyl) => vinyl.genere == id);
 	return result;
+}
+
+function postVinyl(vinyl) {
+	var data = JSON.parse(fs.readFileSync("./vinyls.json").toString());
+	data.push(vinyl);
+	fs.writeFileSync("./vinyls.json", JSON.stringify(data));
+}
+
+function postAuthor(author) {
+	var data = JSON.parse(fs.readFileSync("./authors.json").toString());
+	data.push(author);
+	fs.writeFileSync("./authors.json", JSON.stringify(data));
+}
+
+function postGenre(genre) {
+	var data = JSON.parse(fs.readFileSync("./genres.json").toString());
+	data.push(genre);
+	fs.writeFileSync("./genres.json", JSON.stringify(data));
 }
