@@ -1,10 +1,8 @@
-const express = require("express");
-const scripts = require("./scripts.js");
+const express = require("express"),
+	app = express(),
+	scripts = require("./scripts.js");
 
-const app = express();
-
-// TODO: per scrivere data su file uso fs.writeFileSync
-// TODO: come faccio a scrivere delle funzioni che scrivono dati dal nostro "db" da poter richiamare da express
+// TODO: leggere il body della richiesta ed estrarre i dati da aggiungere al "db"
 
 app.get("/", (req, res) => {
 	res.send("Hello world!");
@@ -46,6 +44,52 @@ app.get("/genres/:id/vinyls", (req, res) => {
 	res.send(scripts.getGenre(id));
 });
 
+// creare un nuovo vinile: POST /vinyls
+app.post("/vinyls", (req, res) => {
+	try {
+		scripts.postVinyl({
+			titolo: "disco 3",
+			autore: "2",
+			genere: "1",
+			id: "3",
+		});
+		res.sendStatus(200);
+	} catch (error) {
+		console.error("impossibile aggiungere il vinile");
+		res.sendStatus(500);
+	}
+});
+
+// creare un nuovo autore: POST /authors
+app.post("/authors", (req, res) => {
+	try {
+		scripts.postAuthor({
+			nome: "pollo pasto",
+			id: "3",
+		});
+		res.sendStatus(200);
+	} catch (error) {
+		console.error("impossibile aggiungere l'autore");
+		res.sendStatus(500);
+	}
+});
+
+// creare un nuovo genere: POST /genres
+app.post("/genres", (req, res) => {
+	try {
+		scripts.postGenre({
+			nome: "pop",
+			id: "3",
+		});
+		res.sendStatus(200);
+	} catch (error) {
+		console.error("impossibile aggiungere il genere");
+		res.sendStatus(500);
+	}
+});
+
 app.listen(3000, () => {
 	console.log("connesso");
 });
+
+app.use(express.json());
