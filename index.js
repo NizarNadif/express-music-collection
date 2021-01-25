@@ -23,7 +23,7 @@ app.get("/authors", (req, res) => {
 });
 
 // elenco dei generi: GET /genres
-app.get("/authors", (req, res) => {
+app.get("/genres", (req, res) => {
 	res.send(scripts.getAllGenres());
 });
 
