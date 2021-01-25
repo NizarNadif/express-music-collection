@@ -17,49 +17,50 @@ module.exports = {
 
 const fs = require("fs");
 
+const vinyls, authors, genres;
+
+updateCollection(vinyls, "./vinyls.json");
+updateCollection(authors, "./authors.json");
+updateCollection(genres, "./genres.json");
+
+function updateCollection(collection, path) {
+	collection = JSON.parse(fs.readFileSync(path).toString());
+}
+
 function getAllVinyls() {
-	const data = JSON.parse(fs.readFileSync("./vinyls.json").toString());
-	return data;
+	return vinyls;
 }
 function getAllAuthors() {
-	const data = JSON.parse(fs.readFileSync("./authors.json").toString());
-	return data;
+	return authors;
 }
 function getAllGenres() {
-	const data = JSON.parse(fs.readFileSync("./genres.json").toString());
-	return data;
+	return genres;
 }
 
 function getVinyl(id) {
-	const data = JSON.parse(fs.readFileSync("./vinyls.json").toString());
-	const result = data.filter((vinyl) => vinyl.id == id)[0];
+	const result = vinyls.filter((vinyl) => vinyl.id == id)[0];
 	return result;
 }
 function getAuthor(id) {
-	const data = JSON.parse(fs.readFileSync("./vinyls.json").toString());
-	const result = data.filter((vinyl) => vinyl.autore == id);
+	const result = authors.filter((vinyl) => vinyl.autore == id);
 	return result;
 }
 function getGenre(id) {
-	const data = JSON.parse(fs.readFileSync("./vinyls.json").toString());
-	const result = data.filter((vinyl) => vinyl.genere == id);
+	const result = genres.filter((vinyl) => vinyl.genere == id);
 	return result;
 }
 
 function postVinyl(vinyl) {
-	var data = JSON.parse(fs.readFileSync("./vinyls.json").toString());
-	data.push(vinyl);
-	fs.writeFileSync("./vinyls.json", JSON.stringify(data));
+	vinyls.push(vinyl);
+	fs.writeFileSync("./vinyls.json", JSON.stringify(vinyls));
 }
 
 function postAuthor(author) {
-	var data = JSON.parse(fs.readFileSync("./authors.json").toString());
-	data.push(author);
-	fs.writeFileSync("./authors.json", JSON.stringify(data));
+	authors.push(author);
+	fs.writeFileSync("./authors.json", JSON.stringify(authors));
 }
 
 function postGenre(genre) {
-	var data = JSON.parse(fs.readFileSync("./genres.json").toString());
-	data.push(genre);
-	fs.writeFileSync("./genres.json", JSON.stringify(data));
+	genres.push(genre);
+	fs.writeFileSync("./genres.json", JSON.stringify(genres));
 }
