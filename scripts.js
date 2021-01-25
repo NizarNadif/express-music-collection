@@ -19,50 +19,54 @@ module.exports = {
 
 const fs = require("fs");
 
-var vinyls = updateCollection("./vinyls.json");
-var authors = updateCollection("./authors.json");
-var genres = updateCollection("./genres.json");
+var vinyls = getCollection("./vinyls.json"),
+	authors = getCollection("./authors.json"),
+	genres = getCollection("./genres.json");
 
-function updateCollection(path) {
+function getCollection(path) {
 	return JSON.parse(fs.readFileSync(path).toString());
 }
 
 function getAllVinyls() {
-	let vinili = vinyls;
-	vinili.forEach((vinile) => {
-		vinile = getVinylInformations(vinile);
+	let result = JSON.parse(JSON.stringify(vinyls));
+	result.map((vinyl) => {
+		return getVinylInfos(vinyl);
 	});
-	return vinili;
+	return result;
 }
 function getAllAuthors() {
-	return authors;
+	return [...authors];
 }
 function getAllGenres() {
-	return genres;
+	return [...genres];
 }
 
 function getVinyl(id) {
-	const result = getVinylInformations(
-		vinyls.find((vinyl) => vinyl.id === id)
-	);
+	let result = getVinylInfos(vinyls.find((vinyl) => vinyl.id === id));
 	return result;
 }
 
 function getAuthor(id) {
-	const result = authors.find((author) => author.id === id);
+	let result = authors.find((author) => author.id === id);
 	return result;
 }
 
 function getGenre(id) {
-	const result = genres.find((genre) => genre.id === id);
+	let result = genres.find((genre) => genre.id === id);
 	return result;
 }
 function getAuthorVinyls(id) {
-	const result = vinyls.filter((vinyl) => vinyl.autore === id);
+	let result = vinyls.filter((vinyl) => vinyl.autore === id);
+	result.map((vinyl) => {
+		return getVinylInfos(vinyl);
+	});
 	return result;
 }
 function getGenreVinyls(id) {
-	const result = vinyls.filter((vinyl) => vinyl.genere === id);
+	let result = vinyls.filter((vinyl) => vinyl.genere === id);
+	result.map((vinyl) => {
+		return getVinylInfos(vinyl);
+	});
 	return result;
 }
 
@@ -81,8 +85,8 @@ function postGenre(genre) {
 	fs.writeFileSync("./genres.json", JSON.stringify(genres));
 }
 
-function getVinylInformations(vinyl) {
-	var { autore, genere } = vinyl;
+function getVinylInfos(vinyl) {
+	let { autore, genere } = vinyl;
 	vinyl.autore = getAuthor(autore);
 	vinyl.genere = getGenre(genere);
 	return vinyl;
