@@ -28,7 +28,11 @@ function updateCollection(path) {
 }
 
 function getAllVinyls() {
-	return vinyls;
+	let vinili = vinyls;
+	vinili.forEach((vinile) => {
+		vinile = getVinylInformations(vinile);
+	});
+	return vinili;
 }
 function getAllAuthors() {
 	return authors;
@@ -38,25 +42,27 @@ function getAllGenres() {
 }
 
 function getVinyl(id) {
-	const result = vinyls.filter((vinyl) => vinyl.id == id)[0];
+	const result = getVinylInformations(
+		vinyls.find((vinyl) => vinyl.id === id)
+	);
 	return result;
 }
 
 function getAuthor(id) {
-	const result = authors.filter((vinyl) => vinyl.id == id)[0];
+	const result = authors.find((author) => author.id === id);
 	return result;
 }
 
 function getGenre(id) {
-	const result = genres.filter((vinyl) => vinyl.id == id)[0];
+	const result = genres.find((genre) => genre.id === id);
 	return result;
 }
 function getAuthorVinyls(id) {
-	const result = vinyls.filter((vinyl) => vinyl.autore == id);
+	const result = vinyls.filter((vinyl) => vinyl.autore === id);
 	return result;
 }
 function getGenreVinyls(id) {
-	const result = vinyls.filter((vinyl) => vinyl.genere == id);
+	const result = vinyls.filter((vinyl) => vinyl.genere === id);
 	return result;
 }
 
@@ -73,4 +79,11 @@ function postAuthor(author) {
 function postGenre(genre) {
 	genres.push(genre);
 	fs.writeFileSync("./genres.json", JSON.stringify(genres));
+}
+
+function getVinylInformations(vinyl) {
+	var { autore, genere } = vinyl;
+	vinyl.autore = getAuthor(autore);
+	vinyl.genere = getGenre(genere);
+	return vinyl;
 }

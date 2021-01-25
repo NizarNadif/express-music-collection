@@ -46,6 +46,8 @@ BODY: informazioni per eseguire la richiesta scritte in JSON
 - elenco degli autori: GET /authors
 - elenco dei generi: GET /genres
 - recuperare informazioni di un disco: GET /vinyls/234
+- recuperare informazioni di un autore: GET /authors/2
+- recuperare informazioni di un genere: GET /genres/1
 - recuperare i dischi di un autore: GET /authors/2/vinyls
 - recuperare i dischi di un genere: GET /genres/1/vinyls
 

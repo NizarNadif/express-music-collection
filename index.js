@@ -34,6 +34,20 @@ app.get("/vinyls/:id", (req, res) => {
 	res.send(scripts.getVinyl(id));
 });
 
+// recuperare informazioni di un autore: GET /authors/2
+app.get("/authors/:id", (req, res) => {
+	const { id } = req.params;
+	//ritorno valori al client
+	res.send(scripts.getAuthor(id));
+});
+
+// recuperare informazioni di un genere: GET /genres/1
+app.get("/genres/:id", (req, res) => {
+	const { id } = req.params;
+	//ritorno valori al client
+	res.send(scripts.getGenre(id));
+});
+
 // recuperare i dischi di un autore: GET /authors/2/vinyls
 app.get("/authors/:id/vinyls", (req, res) => {
 	const { id } = req.params;
