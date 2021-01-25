@@ -4,6 +4,8 @@ const express = require("express"),
 
 // TODO: leggere il body della richiesta ed estrarre i dati da aggiungere al "db"
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
 	res.send("Hello world!");
 });
@@ -47,12 +49,7 @@ app.get("/genres/:id/vinyls", (req, res) => {
 // creare un nuovo vinile: POST /vinyls
 app.post("/vinyls", (req, res) => {
 	try {
-		scripts.postVinyl({
-			titolo: "disco 3",
-			autore: "2",
-			genere: "1",
-			id: "3",
-		});
+		scripts.postVinyl(req.body);
 		res.sendStatus(200);
 	} catch (error) {
 		console.error("impossibile aggiungere il vinile");
@@ -63,10 +60,7 @@ app.post("/vinyls", (req, res) => {
 // creare un nuovo autore: POST /authors
 app.post("/authors", (req, res) => {
 	try {
-		scripts.postAuthor({
-			nome: "pollo pasto",
-			id: "3",
-		});
+		scripts.postAuthor(req.body);
 		res.sendStatus(200);
 	} catch (error) {
 		console.error("impossibile aggiungere l'autore");
@@ -77,10 +71,7 @@ app.post("/authors", (req, res) => {
 // creare un nuovo genere: POST /genres
 app.post("/genres", (req, res) => {
 	try {
-		scripts.postGenre({
-			nome: "pop",
-			id: "3",
-		});
+		scripts.postGenre(req.body);
 		res.sendStatus(200);
 	} catch (error) {
 		console.error("impossibile aggiungere il genere");
@@ -91,5 +82,3 @@ app.post("/genres", (req, res) => {
 app.listen(3000, () => {
 	console.log("connesso");
 });
-
-app.use(express.json());
