@@ -8,6 +8,8 @@ module.exports = {
 	getVinyl,
 	getAuthor,
 	getGenre,
+	getAuthorVinyls,
+	getGenreVinyls,
 
 	// POSTs
 	postVinyl,
@@ -17,14 +19,12 @@ module.exports = {
 
 const fs = require("fs");
 
-const vinyls, authors, genres;
+var vinyls = updateCollection("./vinyls.json");
+var authors = updateCollection("./authors.json");
+var genres = updateCollection("./genres.json");
 
-updateCollection(vinyls, "./vinyls.json");
-updateCollection(authors, "./authors.json");
-updateCollection(genres, "./genres.json");
-
-function updateCollection(collection, path) {
-	collection = JSON.parse(fs.readFileSync(path).toString());
+function updateCollection(path) {
+	return JSON.parse(fs.readFileSync(path).toString());
 }
 
 function getAllVinyls() {
@@ -41,12 +41,22 @@ function getVinyl(id) {
 	const result = vinyls.filter((vinyl) => vinyl.id == id)[0];
 	return result;
 }
+
 function getAuthor(id) {
-	const result = authors.filter((vinyl) => vinyl.autore == id);
+	const result = authors.filter((vinyl) => vinyl.id == id)[0];
 	return result;
 }
+
 function getGenre(id) {
-	const result = genres.filter((vinyl) => vinyl.genere == id);
+	const result = genres.filter((vinyl) => vinyl.id == id)[0];
+	return result;
+}
+function getAuthorVinyls(id) {
+	const result = vinyls.filter((vinyl) => vinyl.autore == id);
+	return result;
+}
+function getGenreVinyls(id) {
+	const result = vinyls.filter((vinyl) => vinyl.genere == id);
 	return result;
 }
 

@@ -1,10 +1,12 @@
 const express = require("express"),
 	app = express(),
-	scripts = require("./scripts.js");
+	scripts = require("./scripts.js"),
+	cors = require("cors");
 
 // TODO: leggere il body della richiesta ed estrarre i dati da aggiungere al "db"
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
 	res.send("Hello world!");
@@ -36,14 +38,14 @@ app.get("/vinyls/:id", (req, res) => {
 app.get("/authors/:id/vinyls", (req, res) => {
 	const { id } = req.params;
 	//ritorno valori al client
-	res.send(scripts.getAuthor(id));
+	res.send(scripts.getAuthorVinyls(id));
 });
 
 // recuperare i dischi di un genere: GET /genres/1/vinyls
 app.get("/genres/:id/vinyls", (req, res) => {
 	const { id } = req.params;
 	//ritorno valori al client
-	res.send(scripts.getGenre(id));
+	res.send(scripts.getGenreVinyls(id));
 });
 
 // creare un nuovo vinile: POST /vinyls
