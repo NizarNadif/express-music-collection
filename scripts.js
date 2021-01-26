@@ -42,7 +42,9 @@ function getAllGenres() {
 }
 
 function getVinyl(id) {
-	let result = getVinylInfos(vinyls.find((vinyl) => vinyl.id === id));
+	let result = getVinylInfos(
+		JSON.parse(JSON.stringify(vinyls.find((vinyl) => vinyl.id === id)))
+	);
 	return result;
 }
 
